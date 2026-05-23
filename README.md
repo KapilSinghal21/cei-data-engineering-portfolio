@@ -2,7 +2,7 @@
 
 Building practical data engineering skills through hands-on work.
 
-![Python](https://img.shields.io/badge/Python-Learning-blue?style=flat-square&logo=python)
+![Python](https://img.shields.io/badge/Python-blue?style=flat-square&logo=python)
 ![Data](https://img.shields.io/badge/Data-Cleaning-orange?style=flat-square)
 ![Status](https://img.shields.io/badge/Status-Active-success?style=flat-square)
 
