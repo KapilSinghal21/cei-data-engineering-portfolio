@@ -20,15 +20,24 @@ Focus areas:
 ---
 
 ## 📁 Repository Structure
-.
-├── week-1/
-│ ├── raw_combined_data.csv
-│ ├── cleaned_data.csv
-│ ├── cleaning_notebook.ipynb
-│ └── summary.md
-├── .gitignore
+```
+CEI-Data-Engineering/
+│
+├── WEEK-1/
+│   ├── combined_dataset.csv
+│   ├── cleaned_dataset.csv
+│   ├── Data_Cleaning_Assignment.ipynb
+│   └── README.md
+│
+├── WEEK-2/
+├── WEEK-3/
+├── WEEK-4/
+├── WEEK-5/
+├── WEEK-6/
+├── WEEK-7/
+├── WEEK-8/
+│
 └── README.md
-
 ---
 
 ## 🔍 Week 1 Highlights
