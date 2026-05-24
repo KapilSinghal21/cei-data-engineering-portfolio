@@ -25,11 +25,7 @@ The objective of this assignment is to clean and preprocess a raw dataset to mak
 
 ## 📊 Final Output
 
-The cleaned dataset includes the following key columns:
-- Product Title  
-- Initial Price  
-- Ratings Count  
-- Total Amount  
+The cleaned processed dataset .
 
 ---
 
