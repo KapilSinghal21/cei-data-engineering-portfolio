@@ -21,10 +21,10 @@ CEI-Data-Engineering/
 │   └── README.md
 │
 ├── WEEK-2/
-|     ├── CEI_SQL_Task2_Week2.docx
-|     ├── Assignment_2_Solution.sql
-|     ├── Query_Results
-|     └── README.md
+|   ├── CEI_SQL_Task2_Week2.docx
+|   ├── Assignment_2_Solution.sql
+|   ├── Query_Results
+|   └── README.md
 |
 ├── WEEK-3/
 ├── WEEK-4/
