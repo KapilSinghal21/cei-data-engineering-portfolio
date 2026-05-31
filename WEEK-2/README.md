@@ -44,4 +44,4 @@
 
 This Assignment combines SQL-based data analysis with data engineering best practices such as indexing, query optimization, and transaction management.
 
-## By Kapil Singhal 
+## By Kapil Singhal

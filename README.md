@@ -36,8 +36,6 @@ CEI-Data-Engineering/
 |
 └──.gitignore
 └── README.md
----
-
 
 ## 👨‍💻 Author
 
