@@ -1,17 +1,11 @@
-# ⚡ Data Engineering Journey @ CEI
-
-Building practical data engineering skills through hands-on work.
-
----
+                      # ⚡ Data Engineering Journey @ CEI
 
 ## 🧠 Overview
 
 This repository contains my work from the **Celebal Excellence Internship (Data Engineering Track)**.
 
----
-
 ## 📁 Repository Structure
-```
+
 CEI-Data-Engineering/
 │
 ├── WEEK-1/
