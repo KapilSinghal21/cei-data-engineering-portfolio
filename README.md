@@ -1,12 +1,17 @@
-                      # ⚡ Data Engineering Journey @ CEI
+# ⚡ Data Engineering Journey @ CEI
+
+---
 
 ## 🧠 Overview
 
 This repository contains my work from the **Celebal Excellence Internship (Data Engineering Track)**.
 
+--- 
+
 ## 📁 Repository Structure
 
 CEI-Data-Engineering/
+```
 │
 ├── WEEK-1/
 │   ├── combined_dataset.csv
