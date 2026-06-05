@@ -114,6 +114,44 @@ FROM (
 ) t
 WHERE rank <= 3;
 
+/* COMBINED QUERY */
+WITH customer_sales AS (
+    SELECT customer_id, SUM(sales) AS total_sales
+    FROM orders
+    GROUP BY customer_id
+)
+SELECT c.customer_name,
+       cs.total_sales,
+       RANK() OVER (ORDER BY cs.total_sales DESC) AS rank
+FROM customer_sales cs
+JOIN customers c
+ON cs.customer_id = c.customer_id;
 
+/* MINI PROJECT ANSWERS */
+
+/* Q1 Top 5 Customers */ 
+SELECT customer_id, SUM(sales) AS total_sales
+FROM orders
+GROUP BY customer_id
+ORDER BY total_sales DESC
+LIMIT 5;
+
+/* Q2 Bottom 5 Customers */
+SELECT customer_id, SUM(sales) AS total_sales
+FROM orders
+GROUP BY customer_id
+ORDER BY total_sales ASC
+LIMIT 5;
+
+/* Q3 Single Order Customers */
+SELECT customer_id
+FROM orders
+GROUP BY customer_id
+HAVING COUNT(order_id) = 1;
+
+/* Q4 Highest Order per Customer */
+SELECT customer_id, MAX(sales)
+FROM orders
+GROUP BY customer_id;
 
 
