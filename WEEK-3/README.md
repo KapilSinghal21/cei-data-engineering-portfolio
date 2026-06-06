@@ -8,9 +8,7 @@ This week focuses on executing Advanced SQL queries and generating structured ou
 
 ## 🛠️ Tools Used
 
-* PostgreSQL
-* pgAdmin
-* SQL
+PostgreSQL • pgAdmin • SQL
 
 ---
 
