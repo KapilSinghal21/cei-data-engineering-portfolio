@@ -1,157 +1,279 @@
-CREATE TABLE superstore_raw (
-    row_id INT,
-    order_id TEXT,
-    order_date DATE,
-    ship_date DATE,
-    ship_mode TEXT,
-    customer_id TEXT,
-    customer_name TEXT,
-    segment TEXT,
-    country TEXT,
-    city TEXT,
-    state TEXT,
-    postal_code TEXT,
-    region TEXT,
-    product_id TEXT,
-    category TEXT,
-    sub_category TEXT,
-    product_name TEXT,
-    sales NUMERIC,
-    quantity INT,
-    discount NUMERIC,
-    profit NUMERIC
+-- Assignment 3
+-- Objective : Data loading -> Cleaning -> Validation -> Analysis
+
+-- --------------------------------
+/* STEP 1 : SETUP DATA */
+-- --------------------------------
+
+-- Step 1.1 : CREATE RAW TABLE
+CREATE TABLE SUPERSTORE_RAW (
+	ROW_ID INT,
+	ORDER_ID TEXT,
+	ORDER_DATE DATE,
+	SHIP_DATE DATE,
+	SHIP_MODE TEXT,
+	CUSTOMER_ID TEXT,
+	CUSTOMER_NAME TEXT,
+	SEGMENT TEXT,
+	COUNTRY TEXT,
+	CITY TEXT,
+	STATE TEXT,
+	POSTAL_CODE TEXT,
+	REGION TEXT,
+	PRODUCT_ID TEXT,
+	CATEGORY TEXT,
+	SUB_CATEGORY TEXT,
+	PRODUCT_NAME TEXT,
+	SALES NUMERIC,
+	QUANTITY INT,
+	DISCOUNT NUMERIC,
+	PROFIT NUMERIC
 );
 
-SELECT * from superstore_raw;
+-- Step 1.2 : LOAD DATA (RAW INGESTION)
+COPY SUPERSTORE_RAW
+FROM
+	'"C:/Users/user/Desktop/Celebal Internship/cei-data-engineering-portfolioWEEK-3\Sample_Superstore.csv"' DELIMITER ',' CSV HEADER QUOTE '"';
 
-COPY superstore_raw
-FROM '"C:/Users/user/Desktop/Celebal Internship/cei-data-engineering-portfolioWEEK-3\Sample_Superstore.csv"'
-DELIMITER ','
-CSV HEADER
-QUOTE '"';
+-- Step 1.3 : DATA VALIDATION
 
-SELECT DISTINCT * FROM superstore_raw;
+-- total records
 
-SELECT COUNT(*) FROM superstore_raw;
-SELECT COUNT(*) FROM (
-    SELECT DISTINCT * FROM superstore_raw
-) t;
+SELECT COUNT(*) AS total_rows FROM superstore_raw;
 
-CREATE TABLE superstore_clean AS SELECT DISTINCT * FROM superstore_raw;
-SELECT COUNT(*) FROM superstore_clean;
+-- Check for duplicates
 
-CREATE TABLE customers AS
-SELECT DISTINCT customer_id, customer_name, segment
-FROM superstore_raw;
+SELECT COUNT(*) AS total_rows FROM superstore_raw;
 
-CREATE TABLE orders AS
-SELECT DISTINCT order_id, order_date, ship_date, ship_mode, customer_id, sales
-FROM superstore_raw;
+SELECT COUNT(*) AS distinct_rows
+FROM (SELECT DISTINCT * FROM superstore_raw) t;
 
-CREATE TABLE products AS
-SELECT DISTINCT product_id, product_name, category, sub_category
-FROM superstore_raw;
+-- Create clean table (remove duplicates)
 
+CREATE TABLE SUPERSTORE_CLEAN AS
+SELECT DISTINCT *
+FROM SUPERSTORE_RAW;
 
-/* Q1 Sales > Average */ 
+-- Post Clean Validation
+SELECT COUNT(*) AS clean_count FROM superstore_clean;
+
+-- INSIGHTS :
+-- if raw_count = distinct_count -> dataset has no duplicates
+-- This Confirms dataset integrity
+
+-- Step 1.4 : Creating 3 tables from superstore_raw table
+
+-- Customer Table
+CREATE TABLE CUSTOMERS AS
+SELECT DISTINCT
+	CUSTOMER_ID,
+	CUSTOMER_NAME,
+	SEGMENT
+FROM
+	SUPERSTORE_RAW;
+
+-- Order Table
+CREATE TABLE ORDERS AS
+SELECT DISTINCT
+	ORDER_ID,
+	ORDER_DATE,
+	SHIP_DATE,
+	SHIP_MODE,
+	CUSTOMER_ID,
+	SALES
+FROM
+	SUPERSTORE_RAW;
+
+-- Products Table
+CREATE TABLE PRODUCTS AS
+SELECT DISTINCT
+	PRODUCT_ID,
+	PRODUCT_NAME,
+	CATEGORY,
+	SUB_CATEGORY
+FROM
+	SUPERSTORE_RAW;
+	
+-- ---------------------------------------
+/* STEP 2 : Performing Required Queries */ 
+-- ---------------------------------------
+
+/* Q1 Order where Sales > Average (Subquery) */
+
 SELECT *
 FROM orders
 WHERE sales > (SELECT AVG(sales) FROM orders);
 
-/* Q2 Highest Order per Customer */
+/* Q2 Highest Sales Order per Customer (Subquery) */
+
 SELECT *
 FROM orders o
 WHERE sales = (
-    SELECT MAX(sales)
-    FROM orders
-    WHERE customer_id = o.customer_id
+SELECT MAX(sales)
+FROM orders
+WHERE customer_id = o.customer_id
 );
 
-/* Q3 Total Sales per Customer (CTE) */ 
+/* Q3 Total Sales per Customer (CTE) */
+
 WITH customer_sales AS (
-    SELECT customer_id, SUM(sales) AS total_sales
-    FROM orders
-    GROUP BY customer_id
+SELECT customer_id, SUM(sales) AS total_sales
+FROM orders
+GROUP BY customer_id
 )
 SELECT * FROM customer_sales;
 
-/* Q4 Above Average Customers */
+/* Q4 Customers with Above Average Sales (CTE + Subquery) */
+
 WITH customer_sales AS (
-    SELECT customer_id, SUM(sales) AS total_sales
-    FROM orders
-    GROUP BY customer_id
+SELECT customer_id, SUM(sales) AS total_sales
+FROM orders
+GROUP BY customer_id
 )
 SELECT *
 FROM customer_sales
 WHERE total_sales > (SELECT AVG(total_sales) FROM customer_sales);
 
-/* Q5 Rank Customers (Window) */
+/* Q5 Rank Customers by total sales (Window Function) */
+
 WITH customer_sales AS (
-    SELECT customer_id, SUM(sales) AS total_sales
-    FROM orders
-    GROUP BY customer_id
+SELECT customer_id, SUM(sales) AS total_sales
+FROM orders
+GROUP BY customer_id
 )
-SELECT *,
+SELECT
+customer_id,
+total_sales,
 RANK() OVER (ORDER BY total_sales DESC) AS rank
 FROM customer_sales;
 
-/* Q6 Row Number per Customer */
-SELECT *,
+/* Q6 Row Number per order within Customer (Window Function + PARTITION BY) */
+
+SELECT order_id, customer_id, sales,
 ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY sales DESC) AS row_num
 FROM orders;
 
-/* Q7 Top 3 Customers */
+/* Q7 Top 3 Customers (Window Function) */
+
 WITH customer_sales AS (
-    SELECT customer_id, SUM(sales) AS total_sales
-    FROM orders
-    GROUP BY customer_id
+SELECT customer_id, SUM(sales) AS total_sales
+FROM orders
+GROUP BY customer_id
 )
 SELECT *
 FROM (
-    SELECT *,
-    RANK() OVER (ORDER BY total_sales DESC) AS rank
-    FROM customer_sales
+SELECT
+customer_id,
+total_sales,
+RANK() OVER (ORDER BY total_sales DESC) AS rank
+FROM customer_sales
 ) t
 WHERE rank <= 3;
 
-/* COMBINED QUERY */
+-- -------------------------------------
+/* STEP 3 : FINAL COMBINED QUERY */
+-- -------------------------------------
 WITH customer_sales AS (
-    SELECT customer_id, SUM(sales) AS total_sales
-    FROM orders
-    GROUP BY customer_id
+SELECT
+c.customer_name,
+SUM(o.sales) AS total_sales
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+GROUP BY c.customer_name
 )
-SELECT c.customer_name,
-       cs.total_sales,
-       RANK() OVER (ORDER BY cs.total_sales DESC) AS rank
-FROM customer_sales cs
-JOIN customers c
-ON cs.customer_id = c.customer_id;
+SELECT
+customer_name,
+total_sales,
+RANK() OVER (ORDER BY total_sales DESC) AS rank
+FROM customer_sales;
 
-/* MINI PROJECT ANSWERS */
+-- -----------------------------
+/* MINI PROJECT QUERIES */ 
+-- -----------------------------
+/* Q1 Top 5 Customers */
 
-/* Q1 Top 5 Customers */ 
-SELECT customer_id, SUM(sales) AS total_sales
+SELECT *
+FROM (
+SELECT
+customer_id,
+SUM(sales) AS total_sales,
+RANK() OVER (ORDER BY SUM(sales) DESC) AS rank
 FROM orders
 GROUP BY customer_id
-ORDER BY total_sales DESC
-LIMIT 5;
+) t
+WHERE rank <= 5;
 
 /* Q2 Bottom 5 Customers */
-SELECT customer_id, SUM(sales) AS total_sales
+
+SELECT *
+FROM (
+SELECT
+customer_id,
+SUM(sales) AS total_sales,
+RANK() OVER (ORDER BY SUM(sales) ASC) AS rank
 FROM orders
 GROUP BY customer_id
-ORDER BY total_sales ASC
-LIMIT 5;
+) t
+WHERE rank <= 5;
 
-/* Q3 Single Order Customers */
+/* Q3 Customer with only one order */
+
 SELECT customer_id
 FROM orders
 GROUP BY customer_id
 HAVING COUNT(order_id) = 1;
 
-/* Q4 Highest Order per Customer */
-SELECT customer_id, MAX(sales)
+/* Q4 Customer with above average sales */
+
+WITH customer_sales AS (
+SELECT customer_id, SUM(sales) AS total_sales
+FROM orders
+GROUP BY customer_id
+)
+SELECT *
+FROM customer_sales
+WHERE total_sales > (SELECT AVG(total_sales) FROM customer_sales);
+
+/* Q5 Highest Order value per customer */ 
+
+SELECT
+customer_id,
+MAX(sales) AS highest_order
 FROM orders
 GROUP BY customer_id;
 
 
+-- /* INSIGHTS */ 
+-- Total Sales by Category
+SELECT category, SUM(sales) AS total_sales
+FROM superstore_raw
+GROUP BY category
+ORDER BY total_sales DESC;
+
+-- Profit by Region 
+SELECT region, SUM(profit) AS total_profit
+FROM superstore_raw
+GROUP BY region
+ORDER BY total_profit DESC;
+
+-- Discount Impact
+SELECT discount, AVG(profit) AS avg_profit
+FROM superstore_raw
+GROUP BY discount
+ORDER BY discount;
+
+-- Top 5 Customers
+SELECT customer_name, SUM(sales) AS total_spent
+FROM superstore_raw
+GROUP BY customer_name
+ORDER BY total_spent DESC
+LIMIT 5;
+
+-- Montly Sales Trend
+SELECT DATE_TRUNC('month', order_date) AS month,
+       SUM(sales) AS monthly_sales
+FROM superstore_raw
+GROUP BY month
+ORDER BY month;
+
+-- By kapil Singhal 
