@@ -13,7 +13,6 @@ venv/
 .vscode/
 
 # Dataset files
-*.csv
 *.xlsx
 *.zip
 
