@@ -22,10 +22,17 @@ CEI-Data-Engineering/
 ├── WEEK-2/
 |   ├── CEI_SQL_Task2_Week2.docx
 |   ├── Assignment_2_Solution.sql
-|   ├── Query_Results
+|   ├── Query_Results/
 |   └── README.md
 |
 ├── WEEK-3/
+|   ├── CEI-SQL-Task3-Week3.docx
+|   ├── Sample_Superstore.csv
+|   ├──  Assignment-3-Solutions.sql
+|   ├── query_results/
+|   └── README.md
+|
+|
 ├── WEEK-4/
 ├── WEEK-5/
 ├── WEEK-6/
