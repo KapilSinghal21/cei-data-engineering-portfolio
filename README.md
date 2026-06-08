@@ -12,7 +12,6 @@ This repository contains my work from the **Celebal Excellence Internship (Data 
 
 CEI-Data-Engineering/
 ```
-│
 ├── WEEK-1/
 │   ├── combined_dataset.csv
 │   ├── cleaned_dataset.csv
@@ -42,6 +41,7 @@ CEI-Data-Engineering/
 |
 └──.gitignore
 └── README.md
+``` 
 
 ## 👨‍💻 Author
 

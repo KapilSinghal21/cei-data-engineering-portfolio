@@ -20,7 +20,7 @@ PostgreSQL • pgAdmin • SQL
 
 ```
 Week_3/
-├──Assignment-3-Solutions.sql
+├── Assignment-3-Solutions.sql
 ├── query_results/ (CSV outputs)
 └── query_results/ insights.txt
 ```
