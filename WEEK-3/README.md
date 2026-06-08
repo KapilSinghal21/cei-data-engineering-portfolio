@@ -1,4 +1,4 @@
-## 📊 Week 3 — PostgreSQL Analysis
+## 📊 Week 3 — Advanced SQL Analytics Using Subqueries, CTEs, and Window Functions
 
 ### 🚀 Overview
 
@@ -18,10 +18,12 @@ PostgreSQL • pgAdmin • SQL
 
 ### 📂 Structure
 
+```
 Week_3/
 ├──Assignment-3-Solutions.sql
 ├── query_results/ (CSV outputs)
 └── query_results/ insights.txt
+```
 
 ### 📈 Key Insights
 
