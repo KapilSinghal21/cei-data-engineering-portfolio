@@ -1,55 +1,37 @@
-# 📊 Week 3 — PostgreSQL Query Execution & Insights
+## 📊 Week 3 — PostgreSQL Analysis
 
-## 🚀 Overview
+### 🚀 Overview
 
-This week focuses on executing Advanced SQL queries and generating structured outputs with meaningful insights.
+Executed SQL queries in PostgreSQL (pgAdmin) and generated structured outputs with business-focused insights.
 
----
-
-## 🛠️ Tools Used
+### 🛠️ Tools
 
 PostgreSQL • pgAdmin • SQL
 
----
+### ⚙️ Work Done
 
-## ⚙️ What I Did
+* Migrated from MySQL Workbench to PostgreSQL
+* Executed all assignment queries
+* Exported results as CSV (query-wise)
+* Organized outputs in `query_results/`
+* Derived insights from results
 
-* Migrated from MySQL Workbench to PostgreSQL(pgAdmin)
-* Executed and validated all queries
-* Exported results as CSV (Q-wise organization)
-* Generated business-focused insights
+### 📂 Structure
+```
+Week_3/
+├──Assignment-3-Solutions.sql
+├── query_results/ (CSV outputs)
+└── query_results/ insights.txt
 
----
+### 📈 Key Insights
 
-## 📈 Key Highlights
+* Technology category has highest profit margin
+* West region contributes maximum sales
+* Profit drops significantly when discount > 20%
+* Few customers contribute disproportionately to total revenue
+* Sales distribution is highly skewed across regions
 
-* Clean and structured query outputs (CSV instead of screenshots)
-* Focus on result reproducibility
-* Insight-driven approach instead of raw query dumping
+### 💡 Outcome
 
----
-
-## 🧠 Insights Summary
-
-* Identified patterns and trends from dataset
-* Compared aggregated values across different categories
-* Highlighted anomalies and key observations
-
-(Refer `insights.txt` for detailed insights)
-
----
-
-## 💡 Learning Outcomes
-
-* Hands-on experience with PostgreSQL execution
-* Exporting and managing query results efficiently
-* Converting raw data into actionable insights
-
----
-
-## ✅ Conclusion
-
-Shifted from basic query execution to a more professional workflow:
-**Query → Structured Output → Insight**
-
----
+Shifted from basic query execution to a structured workflow:
+**Query → CSV Output → Insight**
