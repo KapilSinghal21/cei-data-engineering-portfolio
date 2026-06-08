@@ -26,7 +26,6 @@ CEI-Data-Engineering/
 |
 ├── WEEK-3/
 |   ├── CEI-SQL-Task3-Week3.docx
-|   ├── Sample_Superstore.csv
 |   ├── Assignment-3-Solutions.sql
 |   ├── query_results/
 |   └── README.md
