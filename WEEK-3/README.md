@@ -17,7 +17,7 @@ PostgreSQL • pgAdmin • SQL
 * Derived insights from results
 
 ### 📂 Structure
-```
+
 Week_3/
 ├──Assignment-3-Solutions.sql
 ├── query_results/ (CSV outputs)
