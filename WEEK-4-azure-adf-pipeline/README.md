@@ -111,10 +111,9 @@ week4-azure-adf-pipeline/
     ├── 05_linked_service.png
     ├── 06_datasets.png
     ├── 07_pipeline_canvas.png
-    ├── 08_pipeline_success.png
-    ├── 09_monitor_runs.png
-    ├── 10_iam_roles.png
-    └── 11_output_file.png
+    ├── 08_monitor_runs.png
+    ├── 09_iam_roles.png
+    └── 10_output_file.png
 ```
 
 ---
