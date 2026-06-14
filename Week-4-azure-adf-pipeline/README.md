@@ -78,10 +78,9 @@ The `Storage Blob Data Contributor` role gives ADF permission to read from and w
 | 5 | `screenshots/05_linked_service.png` | ls_blob_storage — connection successful |
 | 6 | `screenshots/06_datasets.png` | Source + Destination datasets |
 | 7 | `screenshots/07_pipeline_canvas.png` | Pipeline with Get Metadata + ForEach + Copy Data |
-| All activities Succeeded |
-| 9 | `screenshots/09_monitor_runs.png` | Monitor tab — 3 successful runs |
-| 10 | `screenshots/10_iam_roles.png` | IAM role assignments |
-| 11 | `screenshots/11_output_file.png` | output.csv in container after pipeline run |
+| 8 | `screenshots/08_monitor_runs.png` | Monitor tab — 3 successful runs |
+| 9 | `screenshots/09_iam_roles.png` | IAM role assignments |
+| 10 | `screenshots/10_output_file.png` | output.csv in container after pipeline run |
 
 ---
 
