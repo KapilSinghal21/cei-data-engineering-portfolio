@@ -1,0 +1,9 @@
+q1 Technology category generates the highest total sales among all categories.
+
+q2 West region contributes the highest overall profit.
+
+q3 Higher discounts reduce average profit significantly.
+
+q4 Top 5 customers contribute a significant portion of total revenue.
+
+q5 Sales show seasonal spikes during specific months.
